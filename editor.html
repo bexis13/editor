@@ -114,6 +114,56 @@
             width: 100%;
             height: 700px;
         }
+        #createTableDiv{ /** the modal /background**/
+            display: none;
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            z-index: 1;
+            display: none;  
+            padding: 5px;
+            background-color: rgb(0,0,0); 
+            background-color: rgba(0,0,0,0.4);
+        }
+        #createTableDivInner{  /** the modal content **/
+           border: 1px solid black;
+            border-radius: 5%;
+            padding: 10px;
+            background: white;
+            width: 400px;
+            height: 180px;
+            margin-left: 450px;
+            margin-top: 30px; 
+        }
+        #createTableDivInner input{
+            width: 70px;
+            align-items: center;
+        }
+        #createListDiv{ /** the modal /background**/
+            display: none;
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            z-index: 1;
+            display: none;  
+            padding: 5px;
+            background-color: rgb(0,0,0); 
+            background-color: rgba(0,0,0,0.4);
+        }
+        #createListDivInner{  /** the modal content **/
+            border: 1px solid black;
+            border-radius: 5%;
+            padding: 10px;
+            background: white;
+            width: 400px;
+            height: 170px;
+            margin-left: 450px;
+            margin-top: 30px; 
+        }
+        #createTableForm{
+            
+        }
+        
     </style>
 </head>
 
@@ -229,7 +279,7 @@
         </div> 
         <div id="mainDisplay">
             <p>
-                lorem ipsum dolor Partnership angel investor creative hackathon MVP<br> innovator prototype pivot release branding deployment analytics non-disclosure agreement graphical user interface. Startup<br> business-to-business infographic partner network angel investor buyer monetization funding bootstrapping. Customer<br> infrastructure equity partner network android technology founders ecosystem incubator metrics. Success incubator accelerator facebook<br> user experience. Leverage advisor research and development. Early adopters non-disclosure agreement hypotheses gen-z. Twitter virality bootstrapping interaction design research and development supply chain equity partner network. Pitch growth hacking buyer<br> gamification bootstrapping iPad analytics marketing paradigm shift funding. Responsive web design facebook crowdsource bootstrapping infographic bandwidth business-to-business. Influencer infrastructure early adopters conversion sales user experience<br> pivot iPad buyer incubator advisor ecosystem.
+                lorem ipsum dolor partnership angel investor creative hackathon MVP<br> innovator prototype pivot release branding deployment analytics non-disclosure agreement graphical user interface. Startup<br> business-to-business infographic partner network angel investor buyer monetization funding bootstrapping. Customer<br> infrastructure equity partner network android technology founders ecosystem incubator metrics. Success incubator accelerator facebook<br> user experience. Leverage advisor research and development. Early adopters non-disclosure agreement hypotheses gen-z. Twitter virality bootstrapping interaction design research and development supply chain equity partner network. Pitch growth hacking buyer<br> gamification bootstrapping iPad analytics marketing paradigm shift funding. Responsive web design facebook crowdsource bootstrapping infographic bandwidth business-to-business. Influencer infrastructure early adopters conversion sales user experience<br> pivot iPad buyer incubator advisor ecosystem.
 
                 Prototype leverage metrics pitch bootstrapping churn rate partnership. Customer traction<br>
                 beta channels backing strategy hackathon agile development advisor branding success. Termsheet handshake paradigm shift partnership<br> bootstrapping leverage success lean startup. First mover advantage ramen partner network gamification. Advisor success partner network technology<br> business plan influencer iPad metrics bandwidth analytics crowdsource. Stealth bandwidth analytics paradigm shift crowdsource ecosystem<br> hackathon social proof technology learning curve. Pivot branding mass market seed round prototype stealth facebook assets backing hypotheses lean<br> startup channels gen-z. Pivot bootstrapping low hanging fruit disruptive social proof gamification angel investor user experience burn rate <br>hackathon innovator. Business-to-business venture angel investor A/B testing marketing lean startup buyer. Android investor business-to-business<br> release beta learning curve growth hacking gen-z disruptive virality.
@@ -245,6 +295,26 @@
                <input type="button" value="Create Table">
                <input type="button" value="Create List">
           </form>
+       </div>
+       <div id="createTableDiv">
+           <div id="createTableDivInner">
+               <form action="" id="createTableForm">
+                   <label for=""> Number of rows:<input type="text"></label>
+                   <label for=""> Number of columns:<input type="text"></label><br><br>
+                   <label for=""> Width:<input type="text"></label>
+                   <label for=""> Height:<input type="text"></label><br><br>
+                   <label for=""> Cellspacing:<input type="text"></label><br><br>
+                   <label for="">border:<input type="text"></label>
+                   <label for=""> border color:<input type="text"></label><br><br>
+                   <input type="button" value="create">
+                   <input type="button" value="throw-off">
+               </form>
+           </div>
+       </div>
+       <div id="createListDiv">
+           <div id="createListDivInner">
+               
+           </div>
        </div>
        <div id="editScreenDisplay">
            <textarea name="" id="editarea" cols="30" rows="10">
@@ -485,6 +555,7 @@
             save: document.forms[1].elements[0],
             createTable: document.forms[1].elements[1],
             createList: document.forms[1].elements[2],
+            createTableDiv: document.querySelector('#createTableDiv'),
             saveFunc: function(){
                 this.save.onclick=function(){
                     mainDisplay.display.innerHTML = editscreenDisplay.editscreenDisplay.value;
@@ -492,8 +563,14 @@
                     main.main.style.display = "block";
                 }  
             },
+            createTableFunc: function(){
+                this.createTable.onclick=function(){
+                    editScreenDashboard.createTableDiv.style.display="block";
+                }
+            }
         }
         editScreenDashboard.saveFunc();
+        editScreenDashboard.createTableFunc();
         
     </script>
 </body>
