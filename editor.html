@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title> editor </title>
+    <style>
+       
+        body{
+            background: #686A6B;
+            background-size: cover;
+        }
+        #main{
+            width: 100%;
+            height: 100%;
+        }
+        #mainDisplayDashboard{
+            height: 60px;
+            background: #686A6B; /* For browsers that do not support gradients */
+            background: -webkit-linear-gradient(#686A6B, #B4B7B8, #686A6B); /* Safari 5.1-6.0 */
+            background: -o-linear-gradient(#686A6B, #B4B7B8, #686A6B); /* For Opera 11.6 to 12.0 */
+            background: -moz-linear-gradient(#686A6B, #B4B7B8, #686A6B); /* For Firefox 3.6 to 15 */
+            background: linear-gradient(#686A6B, #B4B7B8, #686A6B); /* Standard syntax (must be last) */
+            padding-top: 40px;
+            padding-left: 400px;
+        }
+        #mainDisplay{
+            min-height: 800px;
+            background: white;
+            border-left: 2px solid #686A6B;
+            padding: 30px;
+        }
+        #colorDiv{ /** the modal /background**/
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            z-index: 1;
+            display: none;
+            background-color: rgb(0,0,0); 
+            background-color: rgba(0,0,0,0.4); 
+        }
+        #colorTable{   /** the modal content **/
+            width: 160px;
+            height: 160px;
+            margin-left: 600px;
+            margin-top: 50px;
+            border: 1px solid black;
+            background: white;
+            border-radius: 5%;
+            padding: 5px;
+        }
+        #backgroundDiv{ /** the modal /background**/
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            z-index: 1;
+            display: none;  
+            padding: 5px;
+            background-color: rgb(0,0,0); 
+            background-color: rgba(0,0,0,0.4);
+        }
+        #backgroundDivInner{ /** the modal content **/
+            margin-left: 600px;
+            margin-top: 30px;
+            border: 1px solid black;
+            background: white;
+            border-radius: 5%;
+            padding: 5px;
+            width: 160px;
+            height: 180px;
+            
+        }
+        #backgroundTable{
+            width: 160px;
+            height: 160px; 
+        }
+        #backgroundImageDiv{ /** the modal /background**/
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            display: none;
+            z-index: 1;
+            background-color: rgb(0,0,0); 
+            background-color: rgba(0,0,0,0.4);
+        }
+        #backgroundImageDivInner{  /** the modal content **/
+            border: 1px solid black;
+            border-radius: 5%;
+            padding: 10px;
+            background: white;
+            width: 330px;
+            height: 240px;
+            margin-left: 450px;
+            margin-top: 30px;
+        }
+        #backgroundImageTable{
+            width: 330px;
+            height: 200px;
+        }
+        #editScreen{
+            display: none;
+        }
+        #editScreenDashboard{
+            height: 60px;
+            background: #686A6B; /* For browsers that do not support gradients */
+            background: -webkit-linear-gradient(#686A6B, #B4B7B8, #686A6B); /* Safari 5.1-6.0 */
+            background: -o-linear-gradient(#686A6B, #B4B7B8, #686A6B); /* For Opera 11.6 to 12.0 */
+            background: -moz-linear-gradient(#686A6B, #B4B7B8, #686A6B); /* For Firefox 3.6 to 15 */
+            background: linear-gradient(#686A6B, #B4B7B8, #686A6B); /* Standard syntax (must be last) */
+            padding-top: 40px;
+            padding-left: 540px;
+        }
+        #editarea{
+            width: 100%;
+            height: 700px;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <div id="main">
+        <div id="mainDisplayDashboard">
+           
+            <form action="" >
+                <input type="button" value="Edit">
+                <input type="button" value="B">
+                <input type="button" value="/">
+                <input type="button" value="U">
+                <select name="" id="fontSize">
+                   <option value="7pt">7pt</option>
+                   <option value="8pt">8pt</option>
+                   <option value="9pt">9pt</option>
+                   <option value="10pt">10pt</option>
+                   <option value="11pt" selected>11pt</option>
+                   <option value="12pt">12pt</option>
+                   <option value="14pt">14pt</option>
+                   <option value="16pt">16pt</option>
+                   <option value="18pt">18pt</option>
+                   <option value="20pt">20pt</option>
+                   <option value="30pt">30pt</option>
+                   <option value="40pt">40pt</option> 
+                </select>
+                <select name="" id="fontFamily">
+                    <option value="Georgia">Georgia</option>
+                    <option value="Times new roman">Times new roman</option>
+                    <option value="Aerial"> Aerial</option>
+                    <option value="Helvetical"> Helvetical</option>
+                    <option value="comic sans MS"> comic sans MS</option>
+                    <option value="Tahoma"> Tahoma</option>
+                    <option value="Verdana">Verdana</option>
+                    <option value="Geneva">Geneva</option>
+                    <option value="Trebuchet MS">Trebuchet MS</option>
+                    <option value="Impact">Impact</option>
+                    <option value="charcoal">charcoal</option>
+                    <option value="Gadget">Gadget</option>
+                </select>
+                <input type="button" value="color">
+                <input type="button" value="Background">
+                <label for="">left<input type="radio" name="align" value="left" checked></label>
+                <label for="">center<input type="radio" name="align" value="center"></label>
+                <label for="">right<input type="radio" name="align" value="right"></label>
+            </form>
+            
+        </div>
+        <div id="colorDiv">
+            <table id="colorTable">
+                <tr>
+                   <td class="myTd"></td>
+                   <td class="myTd"></td>
+                   <td class="myTd"></td> 
+                </tr>
+                <tr>
+                    <td class="myTd"></td>
+                    <td class="myTd"></td>
+                    <td class="myTd"></td>
+                </tr>
+                <tr>
+                   <td class="myTd"></td>
+                   <td class="myTd"></td>
+                   <td class="myTd"></td> 
+                </tr>
+            </table>
+        </div>
+        <div id="backgroundDiv">
+            <div id="backgroundDivInner">
+                <input type="button" value="background image">
+                <table id="backgroundTable">
+                    <tr>
+                       <td class="myTd"></td>
+                       <td class="myTd"></td>
+                       <td class="myTd"></td> 
+                    </tr>
+                    <tr>
+                        <td class="myTd"></td>
+                        <td class="myTd"></td>
+                        <td class="myTd"></td>
+                    </tr>
+                    <tr>
+                       <td class="myTd"></td>
+                       <td class="myTd"></td>
+                       <td class="myTd"></td> 
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div id="backgroundImageDiv">
+            <div id="backgroundImageDivInner">
+                <input type="button" value="background color" id="backgroundColorButton">
+                <table id="backgroundImageTable">
+                    <tr>
+                       <td class="myTd"></td>
+                       <td class="myTd"></td>
+                       <td class="myTd"></td> 
+                    </tr>
+                    <tr>
+                        <td class="myTd"></td>
+                        <td class="myTd"></td>
+                        <td class="myTd"></td>
+                    </tr>
+                    <tr>
+                       <td class="myTd"></td>
+                       <td class="myTd"></td>
+                       <td class="myTd"></td> 
+                    </tr>
+                </table>
+                <label for=""> Upload file <input type="file" name="uploadFile" id="uploadFile" accept="image/jpeg"> </label>
+            </div>
+        </div> 
+        <div id="mainDisplay">
+            <p>
+                lorem ipsum dolor Partnership angel investor creative hackathon MVP<br> innovator prototype pivot release branding deployment analytics non-disclosure agreement graphical user interface. Startup<br> business-to-business infographic partner network angel investor buyer monetization funding bootstrapping. Customer<br> infrastructure equity partner network android technology founders ecosystem incubator metrics. Success incubator accelerator facebook<br> user experience. Leverage advisor research and development. Early adopters non-disclosure agreement hypotheses gen-z. Twitter virality bootstrapping interaction design research and development supply chain equity partner network. Pitch growth hacking buyer<br> gamification bootstrapping iPad analytics marketing paradigm shift funding. Responsive web design facebook crowdsource bootstrapping infographic bandwidth business-to-business. Influencer infrastructure early adopters conversion sales user experience<br> pivot iPad buyer incubator advisor ecosystem.
+
+                Prototype leverage metrics pitch bootstrapping churn rate partnership. Customer traction<br>
+                beta channels backing strategy hackathon agile development advisor branding success. Termsheet handshake paradigm shift partnership<br> bootstrapping leverage success lean startup. First mover advantage ramen partner network gamification. Advisor success partner network technology<br> business plan influencer iPad metrics bandwidth analytics crowdsource. Stealth bandwidth analytics paradigm shift crowdsource ecosystem<br> hackathon social proof technology learning curve. Pivot branding mass market seed round prototype stealth facebook assets backing hypotheses lean<br> startup channels gen-z. Pivot bootstrapping low hanging fruit disruptive social proof gamification angel investor user experience burn rate <br>hackathon innovator. Business-to-business venture angel investor A/B testing marketing lean startup buyer. Android investor business-to-business<br> release beta learning curve growth hacking gen-z disruptive virality.
+
+            </p>
+        </div>
+         
+    </div>
+    <div id="editScreen">
+       <div id="editScreenDashboard">
+          <form action="">
+              <input type="button" value="Save">
+               <input type="button" value="Create Table">
+               <input type="button" value="Create List">
+          </form>
+       </div>
+       <div id="editScreenDisplay">
+           <textarea name="" id="editarea" cols="30" rows="10">
+               
+           </textarea>
+       </div>
+        
+    </div>
+    
+    
+    <script>
+        //hook, functionality, run philosophy(HFR)
+        var main= {
+            main: document.querySelector('#main')
+        }
+        var mainDisplay = {
+            display: document.getElementById('mainDisplay')
+        }
+        var mainDisplayDashboard={
+            edit: document.forms[0].elements[0],
+            bold: document.forms[0].elements[1],
+            italic: document.forms[0].elements[2],
+            underline: document.forms[0].elements[3],
+            fontSize: document.forms[0].elements[4],        //hooks
+            fontFamily: document.forms[0].elements[5],
+            color: document.forms[0].elements[6],
+            colorDiv: document.querySelector('#colorDiv'),
+            background: document.forms[0].elements[7],
+            backgroundDiv: document.querySelector('#backgroundDiv'),
+            backgroundImage: document.querySelector('#backgroundDiv input'),
+            backgroundImageDiv: document.querySelector('#backgroundImageDiv'),
+            backgroundColor: document.querySelector('#backgroundImageDiv #backgroundColorButton'),
+            uploadFile: document.querySelector('#backgroundImageDiv #uploadFile'),
+            alignment: document.forms[0].align,
+            editFunc: function(){
+              this.edit.onclick=function(){
+                  main.main.style.display="none";
+                  editScreen.editScreen.style.display="block";
+              }
+           },
+            boldFunc: function(){
+                var bold= false;
+                this.bold.onclick = function(){
+                    if(bold){
+                        mainDisplay.display.style.fontWeight="normal";
+                        bold= false;
+                    }else{
+                        mainDisplay.display.style.fontWeight="bold";
+                        bold= true;
+                    }
+                }
+            },
+            italicFunc: function(){
+                var italic= false;
+                this.italic.onclick = function(){
+                    if(italic){
+                        mainDisplay.display.style.fontStyle ="normal";                      //functionalities
+                        italic= false;
+                    }else{
+                        mainDisplay.display.style.fontStyle ="italic";
+                        italic= true;
+                    }
+                }
+            },
+            underlineFunc: function(){
+                var underline;
+                this.underline.onclick=function(){
+                    if(underline){
+                        mainDisplay.display.style.textDecoration="none";
+                        underline= false;
+                    }else{
+                        mainDisplay.display.style.textDecoration="underline"; ;
+                        underline= true;
+                    }   
+                }
+            },
+            fontSizeFunc: function(){
+                this.fontSize.onchange = function(){
+                    mainDisplay.display.style.fontSize = this.value;
+                }
+            },
+            fontFamilyFunc: function(){
+                this.fontFamily.onchange = function(){
+                    mainDisplay.display.style.fontFamily = this.value;
+                }
+            },
+            colorFunc: function(){
+                var myTds =document.querySelectorAll('#colorTable .myTd');
+                var colors = ["red", "green", "blue","brown","purple","black","orange","white","gray"];
+                for(var i=0; i< colors.length; i++){
+                    myTds[i].style.background= colors[i];
+                }  
+                var colorDivShown= false;
+                this.color.onclick = function(){
+                    if(colorDivShown){
+                        mainDisplayDashboard.colorDiv.style.display="none";
+                        colorDivShown=false;
+                    }else{
+                        mainDisplayDashboard.colorDiv.style.display="block";
+                        colorDivShown = true;
+                        for(var i=0; i<myTds.length; i++){
+                            myTds[i].onclick=function(){
+                                if(colorDivShown){
+                                    mainDisplay.display.style.color= this.style.background;
+                                }
+                            }
+                        }
+                        window.onclick = function(event) {
+                            if (event.target == mainDisplayDashboard.colorDiv) {
+                                mainDisplayDashboard.colorDiv.style.display = "none";
+                                colorDivShown=false;
+                            }
+                        }
+                            
+                    }
+                }
+            },
+            backgroundFunc: function(){
+                var myTds =document.querySelectorAll('#backgroundTable .myTd');
+                var colors = ["red", "green", "blue","brown","purple","black","orange","white","gray"];
+                for(var i=0; i< colors.length; i++){
+                    myTds[i].style.background= colors[i];
+                }  
+                var backgroundDivShown = false;
+                this.background.onclick= function(){
+                    if(backgroundDivShown){
+                        mainDisplayDashboard.backgroundDiv.style.display="none";
+                        backgroundDivShown = false;
+                    }else{
+                        mainDisplayDashboard.backgroundDiv.style.display="block";
+                        backgroundDivShown=true;
+                        for(var i=0; i<myTds.length; i++){
+                            myTds[i].onclick=function(){
+                                if(backgroundDivShown){
+                                    mainDisplay.display.style.background= this.style.background;
+                                }
+                            }
+                        }
+                        window.onclick = function(event) {
+                            if (event.target == mainDisplayDashboard.backgroundDiv) {
+                                mainDisplayDashboard.backgroundDiv.style.display = "none";
+                                backgroundDivShown = false;
+                            }
+                        }
+                        var backgroundImageDivShown= false;
+                        mainDisplayDashboard.backgroundImage.onclick=function(){
+                            mainDisplayDashboard.backgroundDiv.style.display="none";
+                            backgroundDivShown = false;
+                            var myTds =document.querySelectorAll('#backgroundImageTable .myTd');
+                            var images = [
+                                "https://pixabay.com/static/uploads/photo/2014/12/10/21/40/lotus-563456_960_720.jpg",
+                                "https://pixabay.com/static/uploads/photo/2016/08/29/01/56/millenium-1627322_960_720.jpg",
+                                "https://pixabay.com/static/uploads/photo/2013/11/20/09/35/background-213649_960_720.jpg",
+                                "https://pixabay.com/static/uploads/photo/2012/12/31/09/53/artmatic-73182_960_720.jpg",
+                                "https://pixabay.com/static/uploads/photo/2015/09/05/06/21/milky-way-923801_960_720.jpg",
+                                "https://pixabay.com/static/uploads/photo/2015/04/02/17/21/iron-man-704046_960_720.jpg",
+                                "https://pixabay.com/static/uploads/photo/2016/08/04/14/04/space-1569133_960_720.jpg",
+                                "https://pixabay.com/static/uploads/photo/2016/09/29/15/59/star-wars-1703175_960_720.jpg",
+                                "https://pixabay.com/static/uploads/photo/2015/09/24/18/55/future-956144_960_720.jpg"
+                            ];
+                            for(var i=0; i< images.length; i++){
+                                myTds[i].style.background= "url('" + images[i] + "')";
+                                myTds[i].onclick=function(){
+                                    mainDisplay.display.style.background = this.style.background;
+                                    mainDisplay.display.style.backgroundSize="cover";
+                                }
+                            }
+                            if(backgroundImageDivShown){
+                                mainDisplayDashboard.backgroundImageDiv.style.display="none";
+                                backgroundImageDivShown = false;
+                            }else{
+                                mainDisplayDashboard.backgroundImageDiv.style.display="block";
+                                backgroundImageDivShown = true;
+                                window.onclick = function(event) {
+                                    if (event.target == mainDisplayDashboard.backgroundImageDiv) {
+                                        mainDisplayDashboard.backgroundImageDiv.style.display="none";
+                                        backgroundImageDivShown=false;
+                                    }
+                                }
+                                mainDisplayDashboard.backgroundColor.onclick=function(){
+                                    backgroundImageDivShown=false;
+                                    backgroundDivShown=true;
+                                    mainDisplayDashboard.backgroundImageDiv.style.display="none";
+                                    mainDisplayDashboard.backgroundDiv.style.display="block";
+                                    mainDisplayDashboard.backgroundFunc();
+                                    window.onclick = function(event) {
+                                        if (event.target == mainDisplayDashboard.backgroundDiv) {
+                                            mainDisplayDashboard.backgroundDiv.style.display="none";
+                                            backgroundDivShown=false;
+                                        }
+                                    }
+                                }
+                            }
+                            mainDisplayDashboard.uploadFile.onchange=function(){
+                                function readURL(input) {
+                                    if (input.files && input.files[0]) {
+                                    var reader = new FileReader();
+                                    reader.onload = function (e) {
+                                        mainDisplay.display.style.background = "url('" +e.target.result+ "')"
+                                        };
+                                    reader.readAsDataURL(input.files[0]);
+                                    }
+                                } readURL(this);
+                            }
+                        }
+                    }
+                }
+            },
+            alignFunc: function(){
+                for(var i=0; i<this.alignment.length; i++){
+                     mainDisplayDashboard.alignment[i].onchange = function(){
+                        mainDisplay.display.style.textAlign = this.value;
+                    }
+                }
+            }
+     
+       }
+        mainDisplayDashboard.editFunc();
+        mainDisplayDashboard.boldFunc();                                                    
+        mainDisplayDashboard.italicFunc();
+        mainDisplayDashboard.underlineFunc();                               //run
+        mainDisplayDashboard.fontSizeFunc();
+        mainDisplayDashboard.fontFamilyFunc();
+        mainDisplayDashboard.colorFunc();
+        mainDisplayDashboard.backgroundFunc();
+        mainDisplayDashboard.alignFunc();
+        
+        //edit screen part hooks functionality run
+        var editScreen = {
+            editScreen: document.querySelector('#editScreen')
+        }
+        var editscreenDisplay = {
+            editscreenDisplay: document.querySelector('#editScreenDisplay')
+        }
+        var editScreenDashboard = {
+            save: document.forms[1].elements[0],
+            createTable: document.forms[1].elements[1],
+            createList: document.forms[1].elements[2],
+            saveFunc: function(){
+                this.save.onclick=function(){
+                    editScreen.editScreen.style.display ="none";
+                    main.main.style.display = "block";
+                }  
+            },
+        }
+        editScreenDashboard.saveFunc();
+        
+    </script>
+</body>
+
+</html>
