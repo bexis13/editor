@@ -566,6 +566,11 @@
             createTableFunc: function(){
                 this.createTable.onclick=function(){
                     editScreenDashboard.createTableDiv.style.display="block";
+                    window.onclick=function(event){
+                        if(event.target==editScreenDashboard.createTableDiv){
+                            editScreenDashboard.createTableDiv.style.display="none";
+                        }
+                    }
                 }
             }
         }
