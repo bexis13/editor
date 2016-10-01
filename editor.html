@@ -280,9 +280,11 @@
             uploadFile: document.querySelector('#backgroundImageDiv #uploadFile'),
             alignment: document.forms[0].align,
             editFunc: function(){
-              this.edit.onclick=function(){
-                  main.main.style.display="none";
-                  editScreen.editScreen.style.display="block";
+                this.edit.onclick=function(){
+                    editscreenDisplay.editscreenDisplay.value = mainDisplay.display.innerHTML;
+                    main.main.style.display="none";
+                    editScreen.editScreen.style.display="block";
+                  
               }
            },
             boldFunc: function(){
@@ -477,7 +479,7 @@
             editScreen: document.querySelector('#editScreen')
         }
         var editscreenDisplay = {
-            editscreenDisplay: document.querySelector('#editScreenDisplay')
+            editscreenDisplay: document.querySelector('#editScreenDisplay textarea')
         }
         var editScreenDashboard = {
             save: document.forms[1].elements[0],
@@ -485,6 +487,7 @@
             createList: document.forms[1].elements[2],
             saveFunc: function(){
                 this.save.onclick=function(){
+                    mainDisplay.display.innerHTML = editscreenDisplay.editscreenDisplay.value;
                     editScreen.editScreen.style.display ="none";
                     main.main.style.display = "block";
                 }  
