@@ -126,18 +126,17 @@
             background-color: rgba(0,0,0,0.4);
         }
         #createTableDivInner{  /** the modal content **/
-           border: 1px solid black;
+            border: 1px solid black;
             border-radius: 5%;
             padding: 10px;
             background: white;
-            width: 400px;
-            height: 180px;
+            width: 200px;
+            height: 300px;
             margin-left: 450px;
             margin-top: 30px; 
         }
         #createTableDivInner input{
             width: 70px;
-            align-items: center;
         }
         #createListDiv{ /** the modal /background**/
             display: none;
@@ -155,7 +154,7 @@
             border-radius: 5%;
             padding: 10px;
             background: white;
-            width: 400px;
+            width: 200px;
             height: 170px;
             margin-left: 450px;
             margin-top: 30px; 
@@ -299,12 +298,12 @@
        <div id="createTableDiv">
            <div id="createTableDivInner">
                <form action="" id="createTableForm">
-                   <label for=""> Number of rows:<input type="text"></label>
+                   <label for=""> Number of rows:<input type="text"></label><br><br>
                    <label for=""> Number of columns:<input type="text"></label><br><br>
-                   <label for=""> Width:<input type="text"></label>
+                   <label for=""> Width:<input type="text"></label><br><br>
                    <label for=""> Height:<input type="text"></label><br><br>
-                   <label for=""> Cellspacing:<input type="text"></label><br><br>
-                   <label for="">border:<input type="text"></label>
+                   <label for=""> Cellspacing:<input type="text"></label><br>
+                   <label for="">border:<input type="text"></label><br><br>
                    <label for=""> border color:<input type="text"></label><br><br>
                    <input type="button" value="create">
                    <input type="button" value="throw-off">
@@ -313,7 +312,11 @@
        </div>
        <div id="createListDiv">
            <div id="createListDivInner">
-               
+               <label for="">Type of list<input type="radio">ol</label><br>
+               <label for="">List marker<input type="text"></label><br><br>
+               <label for="">Number of items<input type="text"></label><br><br>
+               <input type="button" value="throw-off">
+               <input type="button" value="save">
            </div>
        </div>
        <div id="editScreenDisplay">
@@ -556,6 +559,7 @@
             createTable: document.forms[1].elements[1],
             createList: document.forms[1].elements[2],
             createTableDiv: document.querySelector('#createTableDiv'),
+            createListDiv: document.querySelector('#createListDiv'),
             saveFunc: function(){
                 this.save.onclick=function(){
                     mainDisplay.display.innerHTML = editscreenDisplay.editscreenDisplay.value;
@@ -564,6 +568,7 @@
                 }  
             },
             createTableFunc: function(){
+                var createTableDivShown=false;
                 this.createTable.onclick=function(){
                     editScreenDashboard.createTableDiv.style.display="block";
                     window.onclick=function(event){
@@ -572,10 +577,21 @@
                         }
                     }
                 }
+            },
+            createListFunc: function(){
+                this.createList.onclick=function(){
+                    editScreenDashboard.createListDiv.style.display="block";
+                    window.onclick=function(event){
+                        if(event.target==editScreenDashboard.createListDiv){
+                            editScreenDashboard.createListDiv.style.display="none";
+                        }
+                    }
+                }
             }
         }
         editScreenDashboard.saveFunc();
         editScreenDashboard.createTableFunc();
+        editScreenDashboard.createListFunc();
         
     </script>
 </body>
