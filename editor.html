@@ -136,7 +136,7 @@
             margin-top: 30px; 
         }
         #createTableDivInner input{
-            width: 70px;
+            width: 85px;
         }
         #createListDiv{ /** the modal /background**/
             display: none;
@@ -306,17 +306,20 @@
                    <label for="">border:<input type="text"></label><br><br>
                    <label for=""> border color:<input type="text"></label><br><br>
                    <input type="button" value="create">
-                   <input type="button" value="throw-off">
+                   <input type="button" value="feelingLucky">
                </form>
            </div>
        </div>
        <div id="createListDiv">
            <div id="createListDivInner">
-               <label for="">Type of list<input type="radio">ol</label><br>
-               <label for="">List marker<input type="text"></label><br><br>
-               <label for="">Number of items<input type="text"></label><br><br>
-               <input type="button" value="throw-off">
-               <input type="button" value="save">
+                <form action="createListForm">
+                    <label for="">Type of list<input type="radio" name="listType">ol <input type="radio" name="listType">ul</label><br>
+                    <label for="">List marker<input type="text"></label><br><br>
+                    <label for="">Number of items<input type="text"></label><br><br>
+                    <input type="button" value="IFeelLucky">
+                    <input type="button" value="save">
+                </form>
+               
            </div>
        </div>
        <div id="editScreenDisplay">
@@ -560,6 +563,20 @@
             createList: document.forms[1].elements[2],
             createTableDiv: document.querySelector('#createTableDiv'),
             createListDiv: document.querySelector('#createListDiv'),
+            numberOfRows: document.forms[2].elements[0],
+            numberOfColumns: document.forms[2].elements[1],
+            width: document.forms[2].elements[2],
+            height: document.forms[2].elements[3],
+            cellSpacing: document.forms[2].elements[4],
+            border: document.forms[2].elements[5],
+            borderColor: document.forms[2].elements[6],
+            create: document.forms[2].elements[7],
+            feelingLucky: document.forms[2].elements[8],
+            typeOfList: document.forms[3].elements[0],
+            listMarker: document.forms[3].elements[2],
+            numberOfItems: document.forms[3].elements[3],
+            iFeelLucky: document.forms[3].elements[4],
+            saveList: document.forms[3].elements[5],
             saveFunc: function(){
                 this.save.onclick=function(){
                     mainDisplay.display.innerHTML = editscreenDisplay.editscreenDisplay.value;
@@ -568,14 +585,19 @@
                 }  
             },
             createTableFunc: function(){
-                var createTableDivShown=false;
                 this.createTable.onclick=function(){
                     editScreenDashboard.createTableDiv.style.display="block";
+                    editScreenDashboard.createFunc();
                     window.onclick=function(event){
                         if(event.target==editScreenDashboard.createTableDiv){
                             editScreenDashboard.createTableDiv.style.display="none";
                         }
                     }
+                }
+            },
+            createFunc: function(){
+                this.create.onclick=function(){
+                    editScreenDashboard.createTableEvent();
                 }
             },
             createListFunc: function(){
@@ -587,11 +609,39 @@
                         }
                     }
                 }
+            },
+            createTableEvent: function(){
+                var table = document.createElement("TABLE"); // create a table in dom
+                table.setAttribute("id", "myTable"); // give the table id attribute of myTable
+                for (var i = 0; i < Number(editScreenDashboard.numberOfRows.value); i++) {
+                    var tr = document.createElement("TR"); // create table row element in dom
+                    tr.setAttribute("class", "myTr"); // give the tr class attribute of myTr
+                    for (j = 0; j < Number(editScreenDashboard.numberOfColumns.value); j++) {
+                        var td = document.createElement("TD"); // create table column element in dom
+                        td.setAttribute("class", "myTd"); // give the td class attribute of myTd
+                        tr.appendChild(td); // append the column to the row
+                    }
+                    table.appendChild(tr); // append the tr to the previously created table
+                }
+                table.setAttribute("height", editScreenDashboard.height.value);
+                table.setAttribute("width", editScreenDashboard.width.value); 
+                table.setAttribute("cellSpacing", editScreenDashboard.cellSpacing.value);
+                table.setAttribute("border", editScreenDashboard.border.value);
+                table.setAttribute("borderColor", editScreenDashboard.borderColor.value);
+                var div = document.createElement('DIV'); //create a div to house the form
+                div.setAttribute('id', 'myTableDiv'); // give id to the div
+                div.appendChild(table); // append table to the div
+                document.body.appendChild(div); // append "none" div to document body
+                editscreenDisplay.editscreenDisplay.value += document.getElementById('myTableDiv').innerHTML; // add inner html of div, which contains the created table, to value of the main lower display textarea
+                var parent = document.body;
+                var child = document.getElementById('myTableDiv');
+                parent.removeChild(child);
             }
         }
         editScreenDashboard.saveFunc();
         editScreenDashboard.createTableFunc();
         editScreenDashboard.createListFunc();
+       
         
     </script>
 </body>
