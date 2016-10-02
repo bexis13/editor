@@ -67,12 +67,14 @@
             border-radius: 5%;
             padding: 5px;
             width: 160px;
-            height: 180px;
+            height: 185px;
             
         }
         #backgroundTable{
             width: 160px;
             height: 160px; 
+            padding-top: 5px;
+           
         }
         #backgroundImageDiv{ /** the modal /background**/
             position: absolute;
@@ -96,6 +98,7 @@
         #backgroundImageTable{
             width: 330px;
             height: 200px;
+            padding-top: 5px;
         }
         #editScreen{
             display: none;
@@ -159,10 +162,30 @@
             margin-left: 450px;
             margin-top: 30px; 
         }
-        #createTableForm{
+        input[type="text"] {
             
+            background-color: #B4B7B8;
         }
-        
+
+        input[type="button"] {
+            background-color: indianred;
+            font-size: 11px;
+            padding: 5px 9px 5px 9px;
+            border-radius: 12px;
+            box-shadow: 0 5px #B4B7B8;
+        }
+        input[type="button"]:active {
+            box-shadow: 0 2px #686A6B;
+        }
+        input[type="button"]:hover{
+            background-color: #7C3030;
+        } 
+        select{
+            background-color: #90C5D6;
+        }
+        select:hover, select option:hover{
+            background-color: #00E6CF;
+        }
     </style>
 </head>
 
@@ -313,8 +336,13 @@
        <div id="createListDiv">
            <div id="createListDivInner">
                 <form action="createListForm">
-                    <label for="">Type of list<input type="radio" name="listType">ol <input type="radio" name="listType">ul</label><br>
-                    <label for="">List marker<input type="text"></label><br><br>
+                    <label for="">Type of list<input type="radio" name="listType">ol</label><br>
+                    <label for="">List marker<select name="" id="">
+                            <option value="A">A</option>
+                            <option value="a">a</option>
+                            <option value="I">I</option>
+                            <option value="i">i</option>
+                        </select></label><br><br>
                     <label for="">Number of items<input type="text"></label><br><br>
                     <input type="button" value="IFeelLucky">
                     <input type="button" value="save">
@@ -332,7 +360,8 @@
     
     
     <script>
-        //hook, functionality, run philosophy(HFR)
+        //I tried to structure my code with hook, functionality, run (HFR), that is: you write inside an object, all the hooks to the dom nodes,
+        //then write their functionalites, the finally run them( run the functions of the functionalities so they can be activated)
         var main= {
             main: document.querySelector('#main')
         }
@@ -550,7 +579,7 @@
         mainDisplayDashboard.backgroundFunc();
         mainDisplayDashboard.alignFunc();
         
-        //edit screen part hooks functionality run
+        //edit screen part, agian: hooks functionality run
         var editScreen = {
             editScreen: document.querySelector('#editScreen')
         }
@@ -564,7 +593,7 @@
             createTableDiv: document.querySelector('#createTableDiv'),
             createListDiv: document.querySelector('#createListDiv'),
             numberOfRows: document.forms[2].elements[0],
-            numberOfColumns: document.forms[2].elements[1],
+            numberOfColumns: document.forms[2].elements[1],                             //hooks
             width: document.forms[2].elements[2],
             height: document.forms[2].elements[3],
             cellSpacing: document.forms[2].elements[4],
@@ -573,10 +602,10 @@
             create: document.forms[2].elements[7],
             feelingLucky: document.forms[2].elements[8],
             typeOfList: document.forms[3].elements[0],
-            listMarker: document.forms[3].elements[2],
-            numberOfItems: document.forms[3].elements[3],
-            iFeelLucky: document.forms[3].elements[4],
-            saveList: document.forms[3].elements[5],
+            listMarker: document.forms[3].elements[1],
+            numberOfItems: document.forms[3].elements[2],
+            iFeelLucky: document.forms[3].elements[3],
+            saveList: document.forms[3].elements[4],
             saveFunc: function(){
                 this.save.onclick=function(){
                     mainDisplay.display.innerHTML = editscreenDisplay.editscreenDisplay.value;
@@ -597,12 +626,18 @@
             },
             createFunc: function(){
                 this.create.onclick=function(){
-                    editScreenDashboard.createTableEvent();
+                    editScreenDashboard.createTableEvent();                 //functionalities
+                }
+            },
+            saveListFunc: function(){
+                this.saveList.onclick=function(){
+                     editScreenDashboard.saveListEvent();
                 }
             },
             createListFunc: function(){
                 this.createList.onclick=function(){
                     editScreenDashboard.createListDiv.style.display="block";
+                    editScreenDashboard.saveListFunc();
                     window.onclick=function(event){
                         if(event.target==editScreenDashboard.createListDiv){
                             editScreenDashboard.createListDiv.style.display="none";
@@ -623,11 +658,11 @@
                     }
                     table.appendChild(tr); // append the tr to the previously created table
                 }
-                table.setAttribute("height", editScreenDashboard.height.value);
-                table.setAttribute("width", editScreenDashboard.width.value); 
-                table.setAttribute("cellSpacing", editScreenDashboard.cellSpacing.value);
-                table.setAttribute("border", editScreenDashboard.border.value);
-                table.setAttribute("borderColor", editScreenDashboard.borderColor.value);
+                table.setAttribute("height", this.height.value);
+                table.setAttribute("width", this.width.value); 
+                table.setAttribute("cellSpacing", this.cellSpacing.value);
+                table.setAttribute("border", this.border.value);
+                table.setAttribute("borderColor", this.borderColor.value);
                 var div = document.createElement('DIV'); //create a div to house the form
                 div.setAttribute('id', 'myTableDiv'); // give id to the div
                 div.appendChild(table); // append table to the div
@@ -636,10 +671,29 @@
                 var parent = document.body;
                 var child = document.getElementById('myTableDiv');
                 parent.removeChild(child);
+            },
+            saveListEvent: function(){
+                var ol = document.createElement("OL"); //create ol in dom
+                for (var i = 0; i < this.numberOfItems.value; i++) { //create li according to value in create list div(user will enter this value)
+                    var li = document.createElement("LI"); //create the li
+                    var text = document.createTextNode("Item" + (i+1)); // create text node containing text "TEXT"
+                    li.appendChild(text); //append text textnode to create li
+                    ol.appendChild(li); // append the li to ul
+                }
+                ol.setAttribute("type", this.listMarker.value); // the set list style type according to specification in create list div 
+                var div = document.createElement("DIV"); // create div in dom
+                div.appendChild(ol); // append ul to just created div
+                div.setAttribute("id", "myListDiv"); //give div id 
+                div.style.display = "none"; //set the display of div to none
+                document.body.appendChild(div); //append "none"(hidden) div to body
+                editscreenDisplay.editscreenDisplay.value += document.getElementById('myListDiv').innerHTML; // add inner html of the div, which is a table, to text area
+                var parent = document.body;
+                var child = document.getElementById('myListDiv');
+                parent.removeChild(child);
             }
         }
         editScreenDashboard.saveFunc();
-        editScreenDashboard.createTableFunc();
+        editScreenDashboard.createTableFunc();      //run
         editScreenDashboard.createListFunc();
        
         
